@@ -43,3 +43,7 @@ RUN sed -i 's/^PASS_MAX_DAYS.*/PASS_MAX_DAYS    90/' /etc/login.defs && \
 ENV APP_NAME="${APP_NAME}" \
     APP_SLUG="${APP_SLUG}" \
     APP_VERSION="${APP_VERSION}"
+
+WORKDIR /data
+
+USER 1001
