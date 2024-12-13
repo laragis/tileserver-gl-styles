@@ -1,0 +1,4 @@
+services:
+  tileserver-gl-styles:
+    tty: true
+    image: docker.io/ttungbmt/tileserver-gl-styles:${APP_VERSION}
