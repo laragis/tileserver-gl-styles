@@ -9,7 +9,7 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "url": "https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=Xfb74aIJXmRrUdfJyYo5"
+      "url": "https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=T4DfLbI0eAiaF40FAHJd"
     },
     "natural_earth_shaded_relief": {
       "maxzoom": 6,
