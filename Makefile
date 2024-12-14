@@ -16,6 +16,7 @@ build:
 		--build-arg APP_NAME=${APP_NAME} \
 		--build-arg APP_SLUG=${APP_SLUG} \
 		--build-arg APP_VERSION=${APP_VERSION} \
+		--target deploy \
 		.
 
 push:
