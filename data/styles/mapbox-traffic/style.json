@@ -1,0 +1,1112 @@
+{
+  "version": 8,
+  "id": "eb5aaae0-d907-4106-98cd-3495972572df",
+  "name": "LaraGIS Traffic",
+  "metadata": {
+    "mapbox:type": "default",
+    "mapbox:origin": "navigation-night-v1",
+    "mapbox:sdk-support": {
+      "js": "1.6.0",
+      "android": "8.3.0",
+      "ios": "5.3.0"
+    }
+  },
+  "center": [0, 0],
+  "zoom": 1,
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "mapbox://mapbox.mapbox-traffic-v1": {
+      "tiles": [
+        "https://api.mapbox.com/v4/mapbox.mapbox-traffic-v1/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1Ijoibmhhbmt1bjI2MTIiLCJhIjoiY2xrMThtcDR4MDN3cjNrbjRrMXFhYzkyMiJ9.4WElbHG56MatGDFWUfYUkQ"
+      ],
+      "type": "vector"
+    },
+    "mapbox://mapbox.mapbox-incidents-v1": {
+      "tiles": [
+        "https://api.mapbox.com/v4/mapbox.mapbox-incidents-v1/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1Ijoibmhhbmt1bjI2MTIiLCJhIjoiY2xrMThtcDR4MDN3cjNrbjRrMXFhYzkyMiJ9.4WElbHG56MatGDFWUfYUkQ"
+      ],
+      "type": "vector"
+    }
+  },
+  "layers": [
+    {
+      "minzoom": 8,
+      "layout": {
+        "line-join": "round",
+        "line-round-limit": 1.5
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "type"], "full"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-incidents-v1",
+      "id": "incident-closure-lines-navigation",
+      "paint": {
+        "line-color": "hsl(60, 0%, 100%)",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          1,
+          18,
+          7,
+          22,
+          12
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          1,
+          18,
+          10,
+          22,
+          20
+        ]
+      },
+      "source-layer": "closures"
+    },
+    {
+      "minzoom": 8,
+      "layout": {
+        "line-join": "round",
+        "line-round-limit": 1.5
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "type"], "full"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-incidents-v1",
+      "id": "incident-closure-line-highlights-navigation",
+      "paint": {
+        "line-color": "hsl(60, 0%, 40%)",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          0.6,
+          18,
+          4.2,
+          22,
+          6
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          1,
+          18,
+          10,
+          22,
+          20
+        ],
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [1, 0]],
+          14,
+          ["literal", [1, 1]]
+        ]
+      },
+      "source-layer": "closures"
+    },
+    {
+      "minzoom": 8,
+      "layout": {
+        "icon-image": "road-closure",
+        "icon-size": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          0.15,
+          18,
+          0.6,
+          22,
+          1
+        ],
+        "icon-allow-overlap": true
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "type"], "endpoint:full"],
+        ["match", ["geometry-type"], ["LineString", "Point"], true, false]
+      ],
+      "type": "symbol",
+      "source": "mapbox://mapbox.mapbox-incidents-v1",
+      "id": "incident-endpoints-navigation",
+      "paint": {},
+      "source-layer": "closures"
+    },
+    {
+      "minzoom": 8,
+      "layout": {
+        "icon-image": "road-closure",
+        "icon-size": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          0.15,
+          18,
+          0.6,
+          22,
+          1
+        ],
+        "icon-allow-overlap": true
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "type"], "startpoint:full"],
+        ["match", ["geometry-type"], ["LineString", "Point"], true, false]
+      ],
+      "type": "symbol",
+      "source": "mapbox://mapbox.mapbox-incidents-v1",
+      "id": "incident-startpoints-navigation",
+      "paint": {},
+      "source-layer": "closures"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["==", ["geometry-type"], "LineString"],
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["link", "primary_link"], true, false]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-bridge-road-link-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 70%, 60%)",
+          "moderate",
+          "hsl(35, 100%, 50%)",
+          "heavy",
+          "hsl(0, 100%, 65%)",
+          "severe",
+          "hsl(340, 60%, 35%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0,
+          15,
+          3.5,
+          18,
+          7
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 15,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "service"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-bridge-road-minor-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          0.75,
+          18,
+          7,
+          22,
+          18
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 70%, 60%)",
+          "moderate",
+          "hsl(35, 100%, 50%)",
+          "heavy",
+          "hsl(0, 100%, 65%)",
+          "severe",
+          "hsl(340, 60%, 35%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          15,
+          1,
+          18,
+          7,
+          22,
+          30
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "street"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-bridge-road-street-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 70%, 60%)",
+          "moderate",
+          "hsl(35, 100%, 50%)",
+          "heavy",
+          "hsl(0, 100%, 65%)",
+          "severe",
+          "hsl(340, 60%, 35%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          1,
+          18,
+          7,
+          22,
+          60
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 8,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["secondary", "tertiary"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-bridge-road-secondary-tertiary-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 70%, 60%)",
+          "moderate",
+          "hsl(35, 100%, 50%)",
+          "heavy",
+          "hsl(0, 100%, 65%)",
+          "severe",
+          "hsl(340, 60%, 35%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          1,
+          15,
+          3,
+          18,
+          7,
+          22,
+          60
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 6,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "primary"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-bridge-road-primary-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 70%, 60%)",
+          "moderate",
+          "hsl(35, 100%, 50%)",
+          "heavy",
+          "hsl(0, 100%, 65%)",
+          "severe",
+          "hsl(340, 60%, 35%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          1,
+          18,
+          10,
+          22,
+          80
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 6,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        [
+          "match",
+          ["get", "class"],
+          ["motorway_link", "trunk_link"],
+          true,
+          false
+        ],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-bridge-road-major-link-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 70%, 60%)",
+          "moderate",
+          "hsl(35, 100%, 50%)",
+          "heavy",
+          "hsl(0, 100%, 65%)",
+          "severe",
+          "hsl(340, 60%, 35%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0,
+          15,
+          3.5,
+          18,
+          7
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 5,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "maxzoom": 13,
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-bridge-road-motorway-trunk-case-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          6,
+          2,
+          13,
+          7,
+          18,
+          10
+        ],
+        "line-color": "hsl(60, 0%, 100%)",
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          7,
+          0,
+          9,
+          1,
+          15,
+          3,
+          18,
+          7
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 5,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, traffic-and-closures"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-bridge-road-motorway-trunk-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          6,
+          1,
+          13,
+          4,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 70%, 60%)",
+          "moderate",
+          "hsl(35, 100%, 50%)",
+          "heavy",
+          "hsl(0, 100%, 65%)",
+          "severe",
+          "hsl(340, 60%, 35%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          7,
+          0,
+          9,
+          1,
+          15,
+          3,
+          18,
+          7,
+          22,
+          80
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, surface"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["link", "primary_link"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-tunnel-link-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0,
+          15,
+          3.5,
+          18,
+          7
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 15,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, surface"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "service"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-tunnel-minor-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          0.75,
+          18,
+          7,
+          22,
+          18
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          15,
+          1,
+          18,
+          7,
+          22,
+          30
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, surface"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "street"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-tunnel-street-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          1,
+          18,
+          6,
+          22,
+          30
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, surface"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["secondary", "tertiary"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-tunnel-secondary-tertiary-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          1,
+          15,
+          3,
+          18,
+          7,
+          22,
+          60
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, surface"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "primary"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-tunnel-primary-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          1,
+          18,
+          10,
+          22,
+          80
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 6,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, surface"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        [
+          "match",
+          ["get", "class"],
+          ["motorway_link", "trunk_link"],
+          true,
+          false
+        ],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-tunnel-major-link-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0,
+          15,
+          3.5,
+          18,
+          7
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "metadata": {
+        "mapbox:featureComponent": "road-network",
+        "mapbox:group": "Road network, surface"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "id": "traffic-tunnel-motorway-trunk-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          6,
+          1,
+          13,
+          4,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          7,
+          0,
+          9,
+          1,
+          15,
+          3,
+          18,
+          7,
+          22,
+          80
+        ]
+      },
+      "source-layer": "traffic"
+    }
+  ]
+}
