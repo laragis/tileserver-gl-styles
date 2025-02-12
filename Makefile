@@ -25,6 +25,8 @@ push:
 push-latest:
 	docker push ${ORG_NAME}/${APP_SLUG}:latest
 
+push-all: push push-latest
+
 up:
 	docker compose up -d
 

@@ -1,5 +1,6 @@
 {
   "version": 8,
+  "id": "eb5aaae0-d907-4106-98cd-3495972572df",
   "name": "LaraGIS Streets",
   "metadata": {"maputnik:renderer": "mlgljs"},
   "center": [0, 0],
@@ -1423,7 +1424,7 @@
       "maxzoom": 15,
       "layout": {"visibility": "none"},
       "paint": {
-        "fill-color": "hsl(30,6%,73%)",
+        "fill-color": "#ffffff",
         "fill-opacity": 0.3,
         "fill-outline-color": {
           "base": 1,
@@ -1438,7 +1439,7 @@
       "source-layer": "building",
       "minzoom": 14,
       "paint": {
-        "fill-extrusion-color": "hsl(35, 8%, 85%)",
+        "fill-extrusion-color": "#ffffff",
         "fill-extrusion-height": {
           "property": "render_height",
           "type": "identity"
@@ -4324,6 +4325,5 @@
         "icon-halo-color": "#FFF"
       }
     }
-  ],
-  "id": "eb5aaae0-d907-4106-98cd-3495972572df"
+  ]
 }
