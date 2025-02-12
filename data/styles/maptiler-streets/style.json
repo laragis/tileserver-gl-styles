@@ -2,6 +2,13 @@
   "version": 8,
   "id": "e657a657-f27a-442d-85a2-00b1b581e318",
   "name": "MapTiler Streets",
+  "metadata": {"maputnik:renderer": "mlgljs"},
+  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=T4DfLbI0eAiaF40FAHJd",
+  "sprite": "https://api.maptiler.com/maps/e657a657-f27a-442d-85a2-00b1b581e318/sprite",
+  "bearing": 0,
+  "pitch": 0,
+  "center": [0, 0],
+  "zoom": 1,
   "sources": {
     "maptiler_attribution": {
       "attribution": "<a href=\"https://www.maptiler.com/copyright/\" target=\"_blank\">&copy; MapTiler</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>",
@@ -8062,17 +8069,5 @@
         "continent"
       ]
     }
-  ],
-  "metadata": {
-    "maptiler:copyright": "You are licensed to use the style or its derivate for serving map tiles exclusively with MapTiler Server or MapTiler Cloud and in accordance with their licenses and terms. If you plan to use the style in a different way, contact us at sales@maptiler.com."
-  },
-  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=T4DfLbI0eAiaF40FAHJd",
-  "sprite": "https://api.maptiler.com/maps/e657a657-f27a-442d-85a2-00b1b581e318/sprite",
-  "bearing": 0,
-  "pitch": 0,
-  "center": [
-    0,
-    0
-  ],
-  "zoom": 1
+  ]
 }

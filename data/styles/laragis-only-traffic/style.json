@@ -1,30 +1,22 @@
 {
   "version": 8,
   "id": "eb5aaae0-d907-4106-98cd-3495972572df",
-  "name": "LaraGIS Traffic",
-  "metadata": {
-    "mapbox:type": "default",
-    "mapbox:origin": "navigation-night-v1",
-    "mapbox:sdk-support": {
-      "js": "1.6.0",
-      "android": "8.3.0",
-      "ios": "5.3.0"
-    }
-  },
-  "center": [0, 0],
-  "zoom": 1,
+  "name": "LaraGIS Only Traffic",
+  "metadata": {"maputnik:renderer": "mlgljs"},
+  "center": [106.705712, 10.777888],
+  "zoom": 10,
   "bearing": 0,
   "pitch": 0,
   "sources": {
-    "mapbox://mapbox.mapbox-traffic-v1": {
+    "traffic-v1": {
       "tiles": [
-        "https://api.mapbox.com/v4/mapbox.mapbox-traffic-v1/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1Ijoibmhhbmt1bjI2MTIiLCJhIjoiY2xrMThtcDR4MDN3cjNrbjRrMXFhYzkyMiJ9.4WElbHG56MatGDFWUfYUkQ"
+        "https://maps.gtelots.dev/api/v1/tiles/traffic/{z}/{x}/{y}.pbf"
       ],
       "type": "vector"
     },
-    "mapbox://mapbox.mapbox-incidents-v1": {
+    "incidents-v1": {
       "tiles": [
-        "https://api.mapbox.com/v4/mapbox.mapbox-incidents-v1/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1Ijoibmhhbmt1bjI2MTIiLCJhIjoiY2xrMThtcDR4MDN3cjNrbjRrMXFhYzkyMiJ9.4WElbHG56MatGDFWUfYUkQ"
+        "https://maps.gtelots.dev/api/v1/tiles/incidents/{z}/{x}/{y}.pbf"
       ],
       "type": "vector"
     }
@@ -36,17 +28,13 @@
         "line-join": "round",
         "line-round-limit": 1.5
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["==", ["get", "type"], "full"],
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-incidents-v1",
+      "source": "incidents-v1",
       "id": "incident-closure-lines-navigation",
       "paint": {
         "line-color": "hsl(60, 0%, 100%)",
@@ -81,17 +69,13 @@
         "line-join": "round",
         "line-round-limit": 1.5
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["==", ["get", "type"], "full"],
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-incidents-v1",
+      "source": "incidents-v1",
       "id": "incident-closure-line-highlights-navigation",
       "paint": {
         "line-color": "hsl(60, 0%, 40%)",
@@ -144,17 +128,13 @@
         ],
         "icon-allow-overlap": true
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["==", ["get", "type"], "endpoint:full"],
         ["match", ["geometry-type"], ["LineString", "Point"], true, false]
       ],
       "type": "symbol",
-      "source": "mapbox://mapbox.mapbox-incidents-v1",
+      "source": "incidents-v1",
       "id": "incident-endpoints-navigation",
       "paint": {},
       "source-layer": "closures"
@@ -176,17 +156,13 @@
         ],
         "icon-allow-overlap": true
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["==", ["get", "type"], "startpoint:full"],
         ["match", ["geometry-type"], ["LineString", "Point"], true, false]
       ],
       "type": "symbol",
-      "source": "mapbox://mapbox.mapbox-incidents-v1",
+      "source": "incidents-v1",
       "id": "incident-startpoints-navigation",
       "paint": {},
       "source-layer": "closures"
@@ -198,10 +174,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["==", ["geometry-type"], "LineString"],
@@ -210,7 +182,7 @@
         ["match", ["get", "class"], ["link", "primary_link"], true, false]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-bridge-road-link-navigation",
       "paint": {
         "line-width": [
@@ -228,14 +200,14 @@
           "match",
           ["get", "congestion"],
           "low",
-          "hsl(120, 70%, 60%)",
+          "#73D13D",
           "moderate",
-          "hsl(35, 100%, 50%)",
+          "#FF9544",
           "heavy",
-          "hsl(0, 100%, 65%)",
+          "#FF4D4F",
           "severe",
-          "hsl(340, 60%, 35%)",
-          "hsla(0, 0%, 0%, 0)"
+          "#F759AB",
+          "#000000"
         ],
         "line-offset": [
           "interpolate",
@@ -258,10 +230,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["!=", ["get", "structure"], "tunnel"],
@@ -270,7 +238,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-bridge-road-minor-navigation",
       "paint": {
         "line-width": [
@@ -288,14 +256,14 @@
           "match",
           ["get", "congestion"],
           "low",
-          "hsl(120, 70%, 60%)",
+          "#73D13D",
           "moderate",
-          "hsl(35, 100%, 50%)",
+          "#FF9544",
           "heavy",
-          "hsl(0, 100%, 65%)",
+          "#FF4D4F",
           "severe",
-          "hsl(340, 60%, 35%)",
-          "hsla(0, 0%, 0%, 0)"
+          "#F759AB",
+          "#000000"
         ],
         "line-offset": [
           "interpolate",
@@ -318,10 +286,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["!=", ["get", "structure"], "tunnel"],
@@ -330,7 +294,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-bridge-road-street-navigation",
       "paint": {
         "line-width": [
@@ -348,14 +312,14 @@
           "match",
           ["get", "congestion"],
           "low",
-          "hsl(120, 70%, 60%)",
+          "#73D13D",
           "moderate",
-          "hsl(35, 100%, 50%)",
+          "#FF9544",
           "heavy",
-          "hsl(0, 100%, 65%)",
+          "#FF4D4F",
           "severe",
-          "hsl(340, 60%, 35%)",
-          "hsla(0, 0%, 0%, 0)"
+          "#F759AB",
+          "#000000"
         ],
         "line-offset": [
           "interpolate",
@@ -378,10 +342,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["!=", ["get", "structure"], "tunnel"],
@@ -390,7 +350,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-bridge-road-secondary-tertiary-navigation",
       "paint": {
         "line-width": [
@@ -408,14 +368,14 @@
           "match",
           ["get", "congestion"],
           "low",
-          "hsl(120, 70%, 60%)",
+          "#73D13D",
           "moderate",
-          "hsl(35, 100%, 50%)",
+          "#FF9544",
           "heavy",
-          "hsl(0, 100%, 65%)",
+          "#FF4D4F",
           "severe",
-          "hsl(340, 60%, 35%)",
-          "hsla(0, 0%, 0%, 0)"
+          "#F759AB",
+          "#000000"
         ],
         "line-offset": [
           "interpolate",
@@ -440,10 +400,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["!=", ["get", "structure"], "tunnel"],
@@ -452,7 +408,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-bridge-road-primary-navigation",
       "paint": {
         "line-width": [
@@ -470,14 +426,14 @@
           "match",
           ["get", "congestion"],
           "low",
-          "hsl(120, 70%, 60%)",
+          "#73D13D",
           "moderate",
-          "hsl(35, 100%, 50%)",
+          "#FF9544",
           "heavy",
-          "hsl(0, 100%, 65%)",
+          "#FF4D4F",
           "severe",
-          "hsl(340, 60%, 35%)",
-          "hsla(0, 0%, 0%, 0)"
+          "#F759AB",
+          "#000000"
         ],
         "line-offset": [
           "interpolate",
@@ -500,10 +456,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["!=", ["get", "structure"], "tunnel"],
@@ -518,7 +470,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-bridge-road-major-link-navigation",
       "paint": {
         "line-width": [
@@ -536,14 +488,14 @@
           "match",
           ["get", "congestion"],
           "low",
-          "hsl(120, 70%, 60%)",
+          "#73D13D",
           "moderate",
-          "hsl(35, 100%, 50%)",
+          "#FF9544",
           "heavy",
-          "hsl(0, 100%, 65%)",
+          "#FF4D4F",
           "severe",
-          "hsl(340, 60%, 35%)",
-          "hsla(0, 0%, 0%, 0)"
+          "#F759AB",
+          "#000000"
         ],
         "line-offset": [
           "interpolate",
@@ -566,10 +518,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "maxzoom": 13,
       "filter": [
         "all",
@@ -579,7 +527,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-bridge-road-motorway-trunk-case-navigation",
       "paint": {
         "line-width": [
@@ -617,10 +565,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, traffic-and-closures"
-      },
       "filter": [
         "all",
         ["!=", ["get", "structure"], "tunnel"],
@@ -629,7 +573,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-bridge-road-motorway-trunk-navigation",
       "paint": {
         "line-width": [
@@ -649,14 +593,14 @@
           "match",
           ["get", "congestion"],
           "low",
-          "hsl(120, 70%, 60%)",
+          "#73D13D",
           "moderate",
-          "hsl(35, 100%, 50%)",
+          "#FF9544",
           "heavy",
-          "hsl(0, 100%, 65%)",
+          "#FF4D4F",
           "severe",
-          "hsl(340, 60%, 35%)",
-          "hsla(0, 0%, 0%, 0)"
+          "#F759AB",
+          "#000000"
         ],
         "line-offset": [
           "interpolate",
@@ -683,10 +627,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, surface"
-      },
       "filter": [
         "all",
         ["==", ["get", "structure"], "tunnel"],
@@ -695,7 +635,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-tunnel-link-navigation",
       "paint": {
         "line-width": [
@@ -743,10 +683,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, surface"
-      },
       "filter": [
         "all",
         ["==", ["get", "structure"], "tunnel"],
@@ -755,7 +691,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-tunnel-minor-navigation",
       "paint": {
         "line-width": [
@@ -803,10 +739,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, surface"
-      },
       "filter": [
         "all",
         ["==", ["get", "structure"], "tunnel"],
@@ -815,7 +747,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-tunnel-street-navigation",
       "paint": {
         "line-width": [
@@ -863,10 +795,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, surface"
-      },
       "filter": [
         "all",
         ["==", ["get", "structure"], "tunnel"],
@@ -875,7 +803,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-tunnel-secondary-tertiary-navigation",
       "paint": {
         "line-width": [
@@ -923,10 +851,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, surface"
-      },
       "filter": [
         "all",
         ["==", ["get", "structure"], "tunnel"],
@@ -935,7 +859,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-tunnel-primary-navigation",
       "paint": {
         "line-width": [
@@ -983,10 +907,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, surface"
-      },
       "filter": [
         "all",
         ["==", ["get", "structure"], "tunnel"],
@@ -1001,7 +921,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-tunnel-major-link-navigation",
       "paint": {
         "line-width": [
@@ -1049,10 +969,6 @@
         "line-join": "round",
         "line-cap": "round"
       },
-      "metadata": {
-        "mapbox:featureComponent": "road-network",
-        "mapbox:group": "Road network, surface"
-      },
       "filter": [
         "all",
         ["==", ["get", "structure"], "tunnel"],
@@ -1061,7 +977,7 @@
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
-      "source": "mapbox://mapbox.mapbox-traffic-v1",
+      "source": "traffic-v1",
       "id": "traffic-tunnel-motorway-trunk-navigation",
       "paint": {
         "line-width": [

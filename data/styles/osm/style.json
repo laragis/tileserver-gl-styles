@@ -2,6 +2,13 @@
   "version": 8,
   "id": "osm",
   "name": "OSM",
+  "metadata": {"maputnik:renderer": "mlgljs"},
+  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=T4DfLbI0eAiaF40FAHJd",
+  "sprite": "https://api.maptiler.com/maps/openstreetmap/sprite",
+  "bearing": 0,
+  "pitch": 0,
+  "center": [2.8655946968546004, 22.80535462569901],
+  "zoom": 0.7418741168636303,
   "sources": {
     "openmaptiles": {
       "url": "https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=T4DfLbI0eAiaF40FAHJd",
@@ -14161,17 +14168,5 @@
         ]
       ]
     }
-  ],
-  "metadata": {
-    "maptiler:copyright": "You are licensed to use the style or its derivate for serving map tiles exclusively with MapTiler Server or MapTiler Cloud and in accordance with their licenses and terms. If you plan to use the style in a different way, contact us at sales@maptiler.com."
-  },
-  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=T4DfLbI0eAiaF40FAHJd",
-  "sprite": "https://api.maptiler.com/maps/openstreetmap/sprite",
-  "bearing": 0,
-  "pitch": 0,
-  "center": [
-    2.8655946968546004,
-    22.80535462569901
-  ],
-  "zoom": 0.7418741168636303
+  ]
 }
