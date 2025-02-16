@@ -1,7 +1,7 @@
 {
   "version": 8,
   "id": "eb5aaae0-d907-4106-98cd-3495972572df",
-  "name": "LaraGIS Only Traffic Dark",
+  "name": "LaraGIS Only Traffic",
   "metadata": {"maputnik:renderer": "mlgljs"},
   "center": [106.705712, 10.777888],
   "zoom": 10,
@@ -168,7 +168,7 @@
       "source-layer": "closures"
     },
     {
-      "minzoom": 17,
+      "minzoom": 13,
       "layout": {
         "line-round-limit": 1.5,
         "line-join": "round",
@@ -177,357 +177,48 @@
       "filter": [
         "all",
         ["==", ["geometry-type"], "LineString"],
+        ["!=", ["get", "structure"], "tunnel"],
         ["has", "congestion"],
         ["match", ["get", "class"], ["link", "primary_link"], true, false]
       ],
       "type": "line",
       "source": "traffic-v1",
-      "id": "traffic-bridge-road-link-border",
+      "id": "traffic-bridge-road-link-navigation",
       "paint": {
         "line-width": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
-          17,
+          10,
           1,
           18,
-          1.5,
+          7,
           22,
-          2
-        ],
-        "line-gap-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1.5,
-          18,
-          7.5,
-          22,
-          22.5
+          22
         ],
         "line-color": [
           "match",
           ["get", "congestion"],
           "low",
-          "#16865d",
+          "#16e098",
           "moderate",
-          "#d4a81f",
+          "#ffcf43",
           "heavy",
-          "#902e2a",
+          "#f24e42",
           "severe",
-          "#6e1c1c",
+          "#a92727",
           "#000000"
         ],
-        "line-opacity": 1,
         "line-offset": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
-          17,
+          12,
+          0,
+          15,
           3.5,
           18,
           7
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 17,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
-        ["==", ["geometry-type"], "LineString"],
-        ["has", "congestion"],
-        ["match", ["get", "class"], ["link", "primary_link"], true, false]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-link-inner",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1.5,
-          18,
-          7.5,
-          22,
-          22.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#1ba073",
-          "moderate",
-          "#f5c025",
-          "heavy",
-          "#ab443c",
-          "severe",
-          "#8a2525",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          3.5,
-          18,
-          7
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 17,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
-        ["has", "congestion"],
-        ["==", ["get", "class"], "service"],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-minor-border",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1,
-          18,
-          1.5,
-          22,
-          2
-        ],
-        "line-gap-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1.5,
-          18,
-          7.5,
-          22,
-          18.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#16865d",
-          "moderate",
-          "#d4a81f",
-          "heavy",
-          "#902e2a",
-          "severe",
-          "#6e1c1c",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1,
-          18,
-          7,
-          22,
-          30
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 17,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
-        ["has", "congestion"],
-        ["==", ["get", "class"], "service"],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-minor-inner",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1.5,
-          18,
-          7.5,
-          22,
-          18.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#1ba073",
-          "moderate",
-          "#f5c025",
-          "heavy",
-          "#ab443c",
-          "severe",
-          "#8a2525",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1,
-          18,
-          7,
-          22,
-          30
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 17,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
-        ["has", "congestion"],
-        ["==", ["get", "class"], "street"],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-street-border",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1,
-          18,
-          1.5,
-          22,
-          2
-        ],
-        "line-gap-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1.5,
-          18,
-          7.5,
-          22,
-          22.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#16865d",
-          "moderate",
-          "#d4a81f",
-          "heavy",
-          "#902e2a",
-          "severe",
-          "#6e1c1c",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1,
-          18,
-          7,
-          22,
-          60
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 17,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
-        ["has", "congestion"],
-        ["==", ["get", "class"], "street"],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-street-inner",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1.5,
-          18,
-          7.5,
-          22,
-          22.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#1ba073",
-          "moderate",
-          "#f5c025",
-          "heavy",
-          "#ab443c",
-          "severe",
-          "#8a2525",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          17,
-          1,
-          18,
-          7,
-          22,
-          60
         ]
       },
       "source-layer": "traffic"
@@ -541,60 +232,446 @@
       },
       "filter": [
         "all",
+        ["!=", ["get", "structure"], "tunnel"],
         ["has", "congestion"],
-        ["match", ["get", "class"], ["secondary", "tertiary"], true, false],
+        ["==", ["get", "class"], "service"],
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
       "source": "traffic-v1",
-      "id": "traffic-bridge-road-secondary-tertiary-border",
+      "id": "traffic-bridge-road-minor-navigation",
       "paint": {
         "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          0.75,
+          18,
+          7,
+          22,
+          18
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "#16e098",
+          "moderate",
+          "#ffcf43",
+          "heavy",
+          "#f24e42",
+          "severe",
+          "#a92727",
+          "#000000"
+        ],
+        "line-offset": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
           15,
           1,
           18,
-          1.5,
+          7,
           22,
-          2
-        ],
-        "line-gap-width": [
+          30
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "street"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-bridge-road-street-navigation",
+      "paint": {
+        "line-width": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
-          15,
-          1.5,
+          14,
+          1,
           18,
-          7.5,
+          7,
           22,
-          22.5
+          22
         ],
         "line-color": [
           "match",
           ["get", "congestion"],
           "low",
-          "#16865d",
+          "#16e098",
           "moderate",
-          "#d4a81f",
+          "#ffcf43",
           "heavy",
-          "#902e2a",
+          "#f24e42",
           "severe",
-          "#6e1c1c",
+          "#a92727",
           "#000000"
         ],
-        "line-opacity": 1,
         "line-offset": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
+          14,
+          1,
+          18,
+          7,
+          22,
+          60
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 8,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["secondary", "tertiary"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-bridge-road-secondary-tertiary-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "#16e098",
+          "moderate",
+          "#ffcf43",
+          "heavy",
+          "#f24e42",
+          "severe",
+          "#a92727",
+          "#000000"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          1,
           15,
           3,
           18,
           7,
           22,
           60
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 6,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "primary"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-bridge-road-primary-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "#16e098",
+          "moderate",
+          "#ffcf43",
+          "heavy",
+          "#f24e42",
+          "severe",
+          "#a92727",
+          "#000000"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          1,
+          18,
+          10,
+          22,
+          80
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 6,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        [
+          "match",
+          ["get", "class"],
+          ["motorway_link", "trunk_link"],
+          true,
+          false
+        ],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-bridge-road-major-link-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "#16e098",
+          "moderate",
+          "#ffcf43",
+          "heavy",
+          "#f24e42",
+          "severe",
+          "#a92727",
+          "#000000"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0,
+          15,
+          3.5,
+          18,
+          7
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 5,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "maxzoom": 13,
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-bridge-road-motorway-trunk-case-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          6,
+          2,
+          13,
+          7,
+          18,
+          10
+        ],
+        "line-color": "hsl(60, 0%, 100%)",
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          7,
+          0,
+          9,
+          1,
+          15,
+          3,
+          18,
+          7
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 5,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "filter": [
+        "all",
+        ["!=", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-bridge-road-motorway-trunk-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          6,
+          1,
+          13,
+          4,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "#16e098",
+          "moderate",
+          "#ffcf43",
+          "heavy",
+          "#f24e42",
+          "severe",
+          "#a92727",
+          "#000000"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          7,
+          0,
+          9,
+          1,
+          15,
+          3,
+          18,
+          7,
+          22,
+          80
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["match", ["get", "class"], ["link", "primary_link"], true, false],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-tunnel-link-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0,
+          15,
+          3.5,
+          18,
+          7
         ]
       },
       "source-layer": "traffic"
@@ -608,43 +685,155 @@
       },
       "filter": [
         "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "service"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-tunnel-minor-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          0.75,
+          18,
+          7,
+          22,
+          18
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          15,
+          1,
+          18,
+          7,
+          22,
+          30
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
+        ["has", "congestion"],
+        ["==", ["get", "class"], "street"],
+        ["==", ["geometry-type"], "LineString"]
+      ],
+      "type": "line",
+      "source": "traffic-v1",
+      "id": "traffic-tunnel-street-navigation",
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          1,
+          18,
+          7,
+          22,
+          22
+        ],
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low",
+          "hsl(120, 65%, 75%)",
+          "moderate",
+          "hsl(35, 85%, 70%)",
+          "heavy",
+          "hsl(0, 85%, 85%)",
+          "severe",
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
+        ],
+        "line-offset": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          14,
+          1,
+          18,
+          6,
+          22,
+          30
+        ]
+      },
+      "source-layer": "traffic"
+    },
+    {
+      "minzoom": 13,
+      "layout": {
+        "line-round-limit": 1.5,
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "filter": [
+        "all",
+        ["==", ["get", "structure"], "tunnel"],
         ["has", "congestion"],
         ["match", ["get", "class"], ["secondary", "tertiary"], true, false],
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
       "source": "traffic-v1",
-      "id": "traffic-bridge-road-secondary-tertiary-inner",
+      "id": "traffic-tunnel-secondary-tertiary-navigation",
       "paint": {
         "line-width": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
-          15,
-          1.5,
+          10,
+          1,
           18,
-          7.5,
-          22,
-          22.5
+          7
         ],
         "line-color": [
           "match",
           ["get", "congestion"],
           "low",
-          "#1ba073",
+          "hsl(120, 65%, 75%)",
           "moderate",
-          "#f5c025",
+          "hsl(35, 85%, 70%)",
           "heavy",
-          "#ab443c",
+          "hsl(0, 85%, 85%)",
           "severe",
-          "#8a2525",
-          "#000000"
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
         ],
-        "line-opacity": 1,
         "line-offset": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
+          12,
+          1,
           15,
           3,
           18,
@@ -664,55 +853,44 @@
       },
       "filter": [
         "all",
+        ["==", ["get", "structure"], "tunnel"],
         ["has", "congestion"],
         ["==", ["get", "class"], "primary"],
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
       "source": "traffic-v1",
-      "id": "traffic-bridge-road-primary-border",
+      "id": "traffic-tunnel-primary-navigation",
       "paint": {
         "line-width": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
-          13,
+          5,
           1,
           18,
-          1.5,
+          7,
           22,
-          2
-        ],
-        "line-gap-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          13,
-          1.5,
-          18,
-          7.5,
-          22,
-          22.5
+          22
         ],
         "line-color": [
           "match",
           ["get", "congestion"],
           "low",
-          "#16865d",
+          "hsl(120, 65%, 75%)",
           "moderate",
-          "#d4a81f",
+          "hsl(35, 85%, 70%)",
           "heavy",
-          "#902e2a",
+          "hsl(0, 85%, 85%)",
           "severe",
-          "#6e1c1c",
-          "#000000"
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
         ],
-        "line-opacity": 1,
         "line-offset": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
-          13,
+          12,
           1,
           18,
           10,
@@ -723,7 +901,7 @@
       "source-layer": "traffic"
     },
     {
-      "minzoom": 13,
+      "minzoom": 6,
       "layout": {
         "line-round-limit": 1.5,
         "line-join": "round",
@@ -731,62 +909,7 @@
       },
       "filter": [
         "all",
-        ["has", "congestion"],
-        ["==", ["get", "class"], "primary"],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-primary-inner",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          13,
-          1.5,
-          18,
-          7.5,
-          22,
-          22.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#1ba073",
-          "moderate",
-          "#f5c025",
-          "heavy",
-          "#ab443c",
-          "severe",
-          "#8a2525",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          13,
-          1,
-          18,
-          10,
-          22,
-          80
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 13,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
+        ["==", ["get", "structure"], "tunnel"],
         ["has", "congestion"],
         [
           "match",
@@ -799,49 +922,37 @@
       ],
       "type": "line",
       "source": "traffic-v1",
-      "id": "traffic-bridge-road-major-link-border",
+      "id": "traffic-tunnel-major-link-navigation",
       "paint": {
         "line-width": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
-          13,
+          10,
           1,
           18,
-          1.5,
+          7,
           22,
-          2
-        ],
-        "line-gap-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          13,
-          1.5,
-          18,
-          7.5,
-          22,
-          22.5
+          22
         ],
         "line-color": [
           "match",
           ["get", "congestion"],
           "low",
-          "#16865d",
+          "hsl(120, 65%, 75%)",
           "moderate",
-          "#d4a81f",
+          "hsl(35, 85%, 70%)",
           "heavy",
-          "#902e2a",
+          "hsl(0, 85%, 85%)",
           "severe",
-          "#6e1c1c",
-          "#000000"
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
         ],
-        "line-opacity": 1,
         "line-offset": [
           "interpolate",
           ["exponential", 1.5],
           ["zoom"],
-          13,
+          12,
           0,
           15,
           3.5,
@@ -860,281 +971,14 @@
       },
       "filter": [
         "all",
-        ["has", "congestion"],
-        [
-          "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
-          true,
-          false
-        ],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-major-link-inner",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          13,
-          1.5,
-          18,
-          7.5,
-          22,
-          22.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#1ba073",
-          "moderate",
-          "#f5c025",
-          "heavy",
-          "#ab443c",
-          "severe",
-          "#8a2525",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          13,
-          0,
-          15,
-          3.5,
-          18,
-          7
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 5,
-      "maxzoom": 13,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
+        ["==", ["get", "structure"], "tunnel"],
         ["has", "congestion"],
         ["match", ["get", "class"], ["motorway", "trunk"], true, false],
         ["==", ["geometry-type"], "LineString"]
       ],
       "type": "line",
       "source": "traffic-v1",
-      "id": "traffic-bridge-road-motorway-trunk-case-border",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          6,
-          0,
-          13,
-          1,
-          18,
-          1.5,
-          22,
-          2
-        ],
-        "line-gap-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          6,
-          2,
-          13,
-          7.5,
-          18,
-          10.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#16865d",
-          "moderate",
-          "#d4a81f",
-          "heavy",
-          "#902e2a",
-          "severe",
-          "#6e1c1c",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          7,
-          0,
-          9,
-          1,
-          15,
-          3,
-          18,
-          7
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 5,
-      "maxzoom": 13,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
-        ["has", "congestion"],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-motorway-trunk-case-inner",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          6,
-          2,
-          13,
-          7.5,
-          18,
-          10.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#1ba073",
-          "moderate",
-          "#f5c025",
-          "heavy",
-          "#ab443c",
-          "severe",
-          "#8a2525",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          7,
-          0,
-          9,
-          1,
-          15,
-          3,
-          18,
-          7
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 5,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
-        ["has", "congestion"],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-motorway-trunk-border",
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          6,
-          0,
-          13,
-          1,
-          18,
-          1.5,
-          22,
-          2
-        ],
-        "line-gap-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          6,
-          1,
-          13,
-          4.5,
-          18,
-          7.5,
-          22,
-          22.5
-        ],
-        "line-color": [
-          "match",
-          ["get", "congestion"],
-          "low",
-          "#16865d",
-          "moderate",
-          "#d4a81f",
-          "heavy",
-          "#902e2a",
-          "severe",
-          "#6e1c1c",
-          "#000000"
-        ],
-        "line-opacity": 1,
-        "line-offset": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          7,
-          0,
-          9,
-          1,
-          15,
-          3,
-          18,
-          7,
-          22,
-          80
-        ]
-      },
-      "source-layer": "traffic"
-    },
-    {
-      "minzoom": 5,
-      "layout": {
-        "line-round-limit": 1.5,
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "filter": [
-        "all",
-        ["has", "congestion"],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "type": "line",
-      "source": "traffic-v1",
-      "id": "traffic-bridge-road-motorway-trunk-inner",
+      "id": "traffic-tunnel-motorway-trunk-navigation",
       "paint": {
         "line-width": [
           "interpolate",
@@ -1143,26 +987,25 @@
           6,
           1,
           13,
-          4.5,
+          4,
           18,
-          7.5,
+          7,
           22,
-          22.5
+          22
         ],
         "line-color": [
           "match",
           ["get", "congestion"],
           "low",
-          "#1ba073",
+          "hsl(120, 65%, 75%)",
           "moderate",
-          "#f5c025",
+          "hsl(35, 85%, 70%)",
           "heavy",
-          "#ab443c",
+          "hsl(0, 85%, 85%)",
           "severe",
-          "#8a2525",
-          "#000000"
+          "hsl(340, 45%, 75%)",
+          "hsla(0, 0%, 0%, 0)"
         ],
-        "line-opacity": 1,
         "line-offset": [
           "interpolate",
           ["exponential", 1.5],
